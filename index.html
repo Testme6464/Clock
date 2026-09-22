@@ -2,114 +2,712 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aesthetic Digital Clock</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Spin & Win!</title>
+  
+  <!-- Adsterra Script #1 (Popunder/Direct Script) -->
+  <script src="https://pl31466340.profitableratecpmnetwork.com/15/16/a1/1516a1a57c149de15acd3c07eb0c68af.js"></script>
+  
+  <!-- Adsterra Script #3 (Social Bar / Popunder Script) -->
+  <script src="https://pl31466343.profitableratecpmnetwork.com/56/8b/7f/568b7f7a0f87f0587e1bc0b9b8faa5b8.js"></script>
+
+  <!-- Google Identity Services SDK -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
   <style>
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
     }
 
     body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: radial-gradient(circle at center, #1b263b 0%, #0d131f 100%);
+      color: #ffffff;
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 18px;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    header {
+      text-align: center;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    h1 {
+      font-size: 1.7rem;
+      letter-spacing: 1px;
+      font-weight: 800;
+      text-shadow: 0 2px 10px rgba(0, 229, 255, 0.4);
+      color: #f8fafc;
+    }
+
+    /* Auth / Profile Bar */
+    .auth-container {
+      margin-top: 10px;
       display: flex;
       justify-content: center;
       align-items: center;
-      background: #0f172a;
-      overflow: hidden;
+      width: 100%;
     }
 
-    /* Background Animated Glows */
-    .circle {
-      position: absolute;
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 6px 14px;
+      border-radius: 9999px;
+      backdrop-filter: blur(8px);
+    }
+
+    .user-avatar {
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
-      filter: blur(80px);
+      border: 1.5px solid #38bdf8;
     }
 
-    .circle-1 {
-      width: 300px;
-      height: 300px;
-      background: #38bdf8;
-      top: 20%;
-      left: 30%;
+    .user-name {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #f1f5f9;
     }
 
-    .circle-2 {
-      width: 250px;
-      height: 250px;
-      background: #818cf8;
-      bottom: 20%;
-      right: 30%;
+    .btn-logout {
+      background: #ef4444;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 4px 10px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-left: 6px;
     }
 
-    /* Glassmorphism Card Container */
-    .clock-card {
-      position: relative;
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
+    /* Scoreboard */
+    .scoreboard {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.08);
       border: 1px solid rgba(255, 255, 255, 0.15);
-      padding: 40px 60px;
-      border-radius: 24px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(8px);
+      border-radius: 16px;
+      padding: 10px 18px;
+      margin-top: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .score-card {
       text-align: center;
     }
 
-    .time-display {
-      font-size: 4rem;
-      font-weight: 800;
-      color: #f8fafc;
-      letter-spacing: 2px;
-      text-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
+    .score-card .label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #94a3b8;
     }
 
-    .date-display {
-      margin-top: 10px;
-      font-size: 1.1rem;
+    .score-card .value {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #38bdf8;
+    }
+
+    #lastWinValue {
+      color: #4ade80;
+    }
+
+    .btn-withdraw-trigger {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: #fff;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 3px 10px rgba(16, 185, 129, 0.3);
+    }
+
+    /* Wheel Container */
+    .wheel-container {
+      position: relative;
+      width: min(84vw, 320px);
+      height: min(84vw, 320px);
+      margin: 15px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    canvas#wheelCanvas {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 8px 25px rgba(0, 0, 0, 0.5));
+    }
+
+    /* Pointer */
+    .pointer {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 28px;
+      height: 38px;
+      z-index: 10;
+      filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.6));
+    }
+
+    .pointer svg {
+      width: 100%;
+      height: 100%;
+      fill: #f43f5e;
+      stroke: #ffffff;
+      stroke-width: 2px;
+    }
+
+    /* Controls */
+    .controls {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      max-width: 320px;
+    }
+
+    .btn-spin {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      color: #fff;
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      border: none;
+      border-radius: 9999px;
+      padding: 15px 0;
+      width: 100%;
+      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4), inset 0 2px 0 rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+    }
+
+    .btn-spin:active {
+      transform: scale(0.96);
+      box-shadow: 0 2px 8px rgba(245, 158, 11, 0.4);
+    }
+
+    .btn-spin:disabled {
+      background: #475569;
+      box-shadow: none;
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Withdrawal Modal Popup */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(5px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+
+    .modal-card {
+      background: #1e293b;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 22px;
+      width: 100%;
+      max-width: 360px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-card h2 {
+      font-size: 1.2rem;
+      color: #38bdf8;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-size: 0.75rem;
       color: #94a3b8;
-      letter-spacing: 1px;
       text-transform: uppercase;
+    }
+
+    .form-group input, .form-group select {
+      background: #0f172a;
+      border: 1px solid #334155;
+      color: #fff;
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    .rate-info {
+      font-size: 0.75rem;
+      color: #f59e0b;
+      margin-bottom: 10px;
+      text-align: center;
+      background: rgba(245, 158, 11, 0.1);
+      padding: 6px;
+      border-radius: 8px;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .btn-submit-withdraw {
+      flex: 1;
+      background: #10b981;
+      color: #fff;
+      border: none;
+      padding: 10px;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn-close-modal {
+      flex: 1;
+      background: #64748b;
+      color: #fff;
+      border: none;
+      padding: 10px;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .history-list {
+      margin-top: 12px;
+      max-height: 120px;
+      overflow-y: auto;
+      border-top: 1px solid #334155;
+      padding-top: 8px;
+    }
+
+    .history-item {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      padding: 4px 0;
+      color: #cbd5e1;
+    }
+
+    /* General Ads Wrapper */
+    .ad-wrapper {
+      margin: 12px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    .ad-container {
+      margin-top: 15px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      width: 100%;
+    }
+
+    #confettiCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 99;
     }
   </style>
 </head>
 <body>
 
-  <!-- Decorative Glow Circles -->
-  <div class="circle circle-1"></div>
-  <div class="circle circle-2"></div>
-
-  <!-- Clock Container -->
-  <div class="clock-card">
-    <div class="time-display" id="clock">00:00:00 AM</div>
-    <div class="date-display" id="date">Loading Date...</div>
+  <!-- Adsterra Ad #9: 728x90 Leaderboard (Top Banner) -->
+  <div class="ad-wrapper">
+    <script>
+      atOptions = {
+        'key' : '91ffe29c9e3ff6595f286269afbff62c',
+        'format' : 'iframe',
+        'height' : 90,
+        'width' : 728,
+        'params' : {}
+      };
+    </script>
+    <script src="https://www.highrevenueformat.com/91ffe29c9e3ff6595f286269afbff62c/invoke.js"></script>
   </div>
 
-  <script>
-    function updateClock() {
-      const now = new Date();
+  <header>
+    <h1>SPIN THE WHEEL</h1>
 
-      // Time format
-      let hours = now.getHours();
-      const minutes = String(now.getMinutes()).padStart(2, '0');
-      const seconds = String(now.getSeconds()).padStart(2, '0');
-      const ampm = hours >= 12 ? 'PM' : 'AM';
+    <!-- Adsterra Ad #4: 468x60 Banner -->
+    <div class="ad-wrapper">
+      <script>
+        atOptions = {
+          'key' : '2f481761ec77df849e0d229bda460632',
+          'format' : 'iframe',
+          'height' : 60,
+          'width' : 468,
+          'params' : {}
+        };
+      </script>
+      <script src="https://www.highrevenueformat.com/2f481761ec77df849e0d229bda460632/invoke.js"></script>
+    </div>
 
-      hours = hours % 12;
-      hours = hours ? hours : 12; // 0 ကို 12 လို့ ပြောင်းရန်
-      const strHours = String(hours).padStart(2, '0');
+    <div class="auth-container">
+      <div id="googleBtnWrapper">
+        <div id="g_id_onload"
+             data-client_id="101238946203-2g3klef0hsifuonap25afd8bs1g3c0cv.apps.googleusercontent.com"
+             data-callback="handleCredentialResponse"
+             data-auto_prompt="false">
+        </div>
+        <div class="g_id_signin"
+             data-type="standard"
+             data-size="medium"
+             data-theme="outline"
+             data-text="sign_in_with"
+             data-shape="pill"
+             data-logo_alignment="left">
+        </div>
+      </div>
 
-      document.getElementById('clock').textContent = `${strHours}:${minutes}:${seconds} ${ampm}`;
+      <div id="userProfile" class="user-profile" style="display: none;">
+        <img id="userImg" class="user-avatar" src="" alt="User Avatar" />
+        <span id="userName" class="user-name">User</span>
+        <button class="btn-logout" onclick="logout()">Logout</button>
+      </div>
+    </div>
 
-      // Date format
-      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-      document.getElementById('date').textContent = now.toLocaleDateString('en-US', options);
+    <div class="scoreboard">
+      <div class="score-card">
+        <div class="label">Total Points</div>
+        <div class="value" id="totalPoints">0</div>
+      </div>
+      <button class="btn-withdraw-trigger" id="openWithdrawBtn">WITHDRAW</button>
+      <div class="score-card">
+        <div class="label">Last Win</div>
+        <div class="value" id="lastWinValue">+0</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Adsterra Ad #2: Native Banner -->
+  <div class="ad-wrapper">
+    <script async="async" data-cfasync="false" src="https://pl31466341.profitableratecpmnetwork.com/296893a389fde5773d2ca3fd149f8522/invoke.js"></script>
+    <div id="container-296893a389fde5773d2ca3fd149f8522"></div>
+  </div>
+
+  <div class="wheel-container">
+    <div class="pointer">
+      <svg viewBox="0 0 30 40">
+        <polygon points="15,40 0,5 30,5" />
+      </svg>
+    </div>
+    <canvas id="wheelCanvas"></canvas>
+  </div>
+
+  <div class="controls">
+    <button class="btn-spin" id="spinBtn" disabled>LOGIN TO SPIN</button>
+
+    <!-- Adsterra Ad #8: 320x50 Mobile Banner -->
+    <div class="ad-wrapper">
+      <script>
+        atOptions = {
+          'key' : 'da1da437933de9ad6d21d445c41d57ac',
+          'format' : 'iframe',
+          'height' : 50,
+          'width' : 320,
+          'params' : {}
+        };
+      </script>
+      <script src="https://www.highrevenueformat.com/da1da437933de9ad6d21d445c41d57ac/invoke.js"></script>
+    </div>
+  </div>
+
+  <!-- WITHDRAWAL MODAL POPUP -->
+  <div class="modal-overlay" id="withdrawModal">
+    <div class="modal-card">
+      <h2>WITHDRAW POINTS</h2>
+
+      <div class="rate-info">
+        💡 Rate: 10,000 PTS = 1,000 MMK
+      </div>
+
+      <div class="form-group">
+        <label>Payment Method</label>
+        <select id="payMethod">
+          <option value="KBZPay">KBZPay</option>
+          <option value="Mobile Bill">Mobile Bill Topup</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Account / Phone Number</label>
+        <input type="text" id="payAccount" placeholder="09xxxxxxxxx" />
+      </div>
+
+      <div class="form-group">
+        <label>Points to Withdraw (Min: 10000 PTS)</label>
+        <input type="number" id="withdrawAmount" placeholder="10000" />
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-submit-withdraw" onclick="submitWithdrawalWithFirebase()">Submit Request</button>
+        <button class="btn-close-modal" onclick="closeWithdrawModal()">Cancel</button>
+      </div>
+
+      <div class="history-list" id="historyList">
+        <!-- Realtime Firebase History Loaded Here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ADS SECTION -->
+  <div class="ad-container" id="adBox">
+    <!-- Adsterra Ad #5: 300x250 Medium Rectangle -->
+    <div class="ad-wrapper">
+      <script>
+        atOptions = {
+          'key' : '901dae0c71cca39b3d35938dc6e5f1cf',
+          'format' : 'iframe',
+          'height' : 250,
+          'width' : 300,
+          'params' : {}
+        };
+      </script>
+      <script src="https://www.highrevenueformat.com/901dae0c71cca39b3d35938dc6e5f1cf/invoke.js"></script>
+    </div>
+
+    <!-- Adsterra Ad #6: 160x300 Wide Skyscraper -->
+    <div class="ad-wrapper">
+      <script>
+        atOptions = {
+          'key' : '84e16c0fc2f5553a4aa0e4fe20e1ded7',
+          'format' : 'iframe',
+          'height' : 300,
+          'width' : 160,
+          'params' : {}
+        };
+      </script>
+      <script src="https://www.highrevenueformat.com/84e16c0fc2f5553a4aa0e4fe20e1ded7/invoke.js"></script>
+    </div>
+
+    <!-- Adsterra Ad #7: 160x600 Skyscraper -->
+    <div class="ad-wrapper">
+      <script>
+        atOptions = {
+          'key' : '448d302a2cda1ee71c491d85c16a27b9',
+          'format' : 'iframe',
+          'height' : 600,
+          'width' : 160,
+          'params' : {}
+        };
+      </script>
+      <script src="https://www.highrevenueformat.com/448d302a2cda1ee71c491d85c16a27b9/invoke.js"></script>
+    </div>
+  </div>
+
+  <canvas id="confettiCanvas"></canvas>
+
+  <!-- FIREBASE SDK & REALTIME SYSTEM -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCKYDqmCo4CCj7USP5wcXPV4elTWuuhnkU",
+      authDomain: "spintest-c5cbc.firebaseapp.com",
+      databaseURL: "https://spintest-c5cbc-default-rtdb.firebaseio.com",
+      projectId: "spintest-c5cbc",
+      storageBucket: "spintest-c5cbc.firebasestorage.app",
+      messagingSenderId: "101238946203",
+      appId: "1:101238946203:web:aa5b16053efcb26cd4093e",
+      measurementId: "G-H0P7BD41G8"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    window.submitWithdrawalWithFirebase = function() {
+      if (!currentUser) return;
+
+      const method = document.getElementById("payMethod").value;
+      const account = document.getElementById("payAccount").value.trim();
+      const amount = parseInt(document.getElementById("withdrawAmount").value, 10);
+
+      if (!account) {
+        alert("Please enter your Phone or Account number.");
+        return;
+      }
+
+      if (isNaN(amount) || amount < MIN_WITHDRAW_POINTS) {
+        alert(`Minimum withdrawal amount is ${MIN_WITHDRAW_POINTS.toLocaleString()} PTS (1,000 Ks).`);
+        return;
+      }
+
+      if (amount > totalScore) {
+        alert("Insufficient points balance!");
+        return;
+      }
+
+      const mmkValue = Math.floor((amount / POINT_RATE) * MMK_AMOUNT);
+      const reqId = "REQ_" + Date.now();
+
+      totalScore -= amount;
+      saveUserScore();
+      totalPointsDisplay.textContent = totalScore.toLocaleString();
+
+      const withdrawData = {
+        reqId: reqId,
+        userId: currentUser.id,
+        userName: currentUser.name || "Unknown",
+        userEmail: currentUser.email || "No Email",
+        method: method,
+        account: account,
+        amount: amount,
+        mmkValue: mmkValue,
+        status: "Pending",
+        date: new Date().toLocaleDateString()
+      };
+
+      set(ref(db, `withdrawals/${currentUser.id}/${reqId}`), withdrawData)
+        .then(() => {
+          sendTelegramNotificationWithButtons(withdrawData);
+          alert(`Withdrawal request for ${mmkValue.toLocaleString()} Ks submitted!`);
+          document.getElementById("payAccount").value = "";
+          document.getElementById("withdrawAmount").value = "";
+          closeWithdrawModal();
+        })
+        .catch(err => {
+          console.error("Firebase Push Error:", err);
+          alert("Error submitting request. Please try again.");
+        });
+    };
+
+    function sendTelegramNotificationWithButtons(details) {
+      const message = `🚨 *NEW WITHDRAWAL REQUEST* 🚨\n\n` +
+                      `🆔 *Req ID:* \`${details.reqId}\`\n` +
+                      `👤 *User Name:* ${details.userName}\n` +
+                      `📧 *Email:* ${details.userEmail}\n` +
+                      `💳 *Payment Method:* ${details.method}\n` +
+                      `📱 *Account/Phone:* \`${details.account}\`\n` +
+                      `🪙 *Points:* ${details.amount.toLocaleString()} PTS\n` +
+                      `💵 *Amount:* ${details.mmkValue.toLocaleString()} Ks\n` +
+                      `📅 *Date:* ${details.date}\n\n` +
+                      `🟡 *Status:* Pending`;
+
+      const payload = {
+        chat_id: TELEGRAM_CHAT_ID,
+        text: message,
+        parse_mode: 'Markdown',
+        reply_markup: {
+          inline_keyboard: [
+            [
+              { text: "✅ Complete", callback_data: `complete_${details.userId}_${details.reqId}` },
+              { text: "❌ Reject", callback_data: `reject_${details.userId}_${details.reqId}` }
+            ]
+          ]
+        }
+      };
+
+      fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
     }
 
-    // Update every 1 second
-    setInterval(updateClock, 1000);
-    updateClock();
+    window.listenWithdrawalHistory = function() {
+      if (!currentUser) return;
+
+      const userHistoryRef = ref(db, `withdrawals/${currentUser.id}`);
+
+      onValue(userHistoryRef, (snapshot) => {
+        const data = snapshot.val();
+        const historyList = document.getElementById("historyList");
+        historyList.innerHTML = "";
+
+        if (data) {
+          Object.keys(data).reverse().forEach(key => {
+            const item = data[key];
+            const isCompleted = item.status === "Completed";
+            const statusColor = isCompleted ? "#4ade80" : (item.status === "Rejected" ? "#ef4444" : "#f59e0b");
+
+            historyList.innerHTML += `
+              <div class="history-item">
+                <span>${item.date} (${item.method})</span>
+                <span>${item.mmkValue ? item.mmkValue.toLocaleString() + ' Ks' : item.amount + ' PTS'}</span>
+                <span style="color: ${statusColor}; font-weight: bold;">${item.status}</span>
+              </div>
+            `;
+          });
+        } else {
+          historyList.innerHTML = `<div style="text-align:center; font-size:0.75rem; color:#64748b;">No withdrawal history</div>`;
+        }
+      });
+    };
   </script>
-</body>
-</html>
+
+  <!-- GAME LOGIC SCRIPT -->
+  <script>
+    const COOLDOWN_SECONDS = 120;
+    const MIN_WITHDRAW_POINTS = 10000;
+    const POINT_RATE = 10000;
+    const MMK_AMOUNT = 1000;
+    const ADSTERRA_SMART_LINK = "https://www.profitableratecpmnetwork.com/evf73wcxwm?key=faa922dc9478bcc1d0e03e7703912ab3";
+
+    const TELEGRAM_BOT_TOKEN = "8593049530:AAFN6RBtnZyoClL70nG4sJOokSzWkNzeY-U";
+    const TELEGRAM_CHAT_ID = "-1004318703595";
+
+    const SLICES = [
+      { text: "100 PTS", value: 100, color: "#10b981" },
+      { text: "20 PTS",  value: 20,  color: "#3b82f6" },
+      { text: "400 PTS", value: 400, color: "#8b5cf6" },
+      { text: "0 PTS",   value: 0,   color: "#64748b" },
+      { text: "50 PTS",  value: 50,  color: "#06b6d4" },
+      { text: "200 PTS", value: 200, color: "#ec4899" },
+      { text: "JACKPOT", value: 700,color: "#f59e0b" },
+      { text: "10 PTS",  value: 10,  color: "#14b8a6" }
+    ];
+
+    const NUM_SLICES = SLICES.length;
+    const SLICE_ANGLE = (2 * Math.PI) / 
